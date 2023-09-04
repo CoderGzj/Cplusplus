@@ -19,6 +19,7 @@ public:
 	MyArray(const MyArray& arr) {
 		this->m_Capacity = arr.m_Capacity;
 		this->m_Size = arr.m_Size;
+
 		//深拷贝
 		this->pAddress = new T[arr.m_Capacity];
 
@@ -28,7 +29,7 @@ public:
 		}
 	}
 
-	//operator= 防止浅拷贝问题
+	//重载= 防止浅拷贝问题
 	MyArray& operator=(const MyArray& arr) {
 		if (this->pAddress != NULL) {
 			delete[] this->pAddress;
@@ -39,11 +40,55 @@ public:
 		//深拷贝
 		this->m_Capacity = arr.m_Capacity;
 		this->m_Size = arr.m_Size;
-		this->pAddress = new T[arr.m_Capacity]；
+		this->pAddress = new T[arr.m_Capacity];
 		for (int i = 0; i < arr.m_Size; i++) {
 			this->pAddress[i] = arr.pAddress[i];
 		}
 		return *this;
+	}
+
+	//重载[] 操作符
+	T& operator[] (int index) {
+		return this->pAddress[index];
+	}
+	
+	//扩容
+	void Add_Capacity() {
+		this->m_Capacity++;
+		T* temp = new T[this->m_Capacity];
+		for (int i = 0; i < this->m_Size; i++) {
+			temp[i] = this->pAddress[i];
+		}
+		delete[] this->pAddress;
+		this->pAddress = temp;
+		temp = NULL;
+	}
+
+	//尾插
+	void Push_Back(const T& val) {
+		if (this->m_Capacity == this->m_Size) {
+			this->Add_Capacity();
+		}
+		this->pAddress[this->m_Size] = val;
+		this->m_Size++;
+	}
+
+	//尾删
+	void Pop_Back() {
+		if (this->m_Size == 0) {
+			return;
+		}
+		this->m_Size--;
+	}
+
+	//获取数组容量
+	int GetCapacity() {
+		return this->m_Capacity;
+	}
+
+	//获取数组大小
+	int GetSize() {
+		return this->m_Size;
 	}
 
 	//析构
