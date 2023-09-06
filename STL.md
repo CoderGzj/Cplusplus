@@ -207,7 +207,7 @@ front返回容器第一个元素
 back返回容器最后一个元素
 
 ### deque排序
-
+函数原型：
 `sort(iterator beg, iterator end)`  //对beg和end区间内元素进行排序
 sort算法非常实用，使用时包含头文件 algorithm即可
 
@@ -217,6 +217,6 @@ sort算法非常实用，使用时包含头文件 algorithm即可
 
 ## list容器
 
-## set/multiset容器
+## set / multiset容器
 
-## map/multimap容器
+## map / multimap容器
